@@ -6,7 +6,7 @@
 /*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:07:56 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/07 19:20:08 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/08 12:53:12 by otboumeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <pthread.h> // mutex: init destroy lock unlock
 #include <sys/time.h> // gettimeofday
 #include <limits.h> // INT_MAX INT_MIN
+#include <errno.h> // Errors
 #define RED     "\033[31m"
 #define GREEN   "\033[32m"
 #define YELLOW  "\033[33m"
@@ -30,6 +31,17 @@
 // we will need 3 structs one for the philo, one for the fork and one for the elements(time ...)
 typedef pthread_mutex_t t_mtx;
 typedef struct s_table t_table;
+
+typedef enum e_opcode
+{	
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH,
+}	t_opcode;
 
 typedef struct s_fork
 {
@@ -67,5 +79,9 @@ void	error_exit(const char *error);
 
 //parsing.c
 void	parse_input(t_table *table,int argc, char **argv);
+
+//error_handling.c
+void *malloc_creation(size_t bytes);
+void	safe_mutex_handler(t_mtx *mutex, t_opcode opcode);
 
 #endif

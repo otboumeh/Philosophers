@@ -6,7 +6,7 @@
 /*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 17:19:14 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/07 19:20:24 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/08 10:59:27 by otboumeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,21 @@ static	long	ft_atol(const char *str)
 void	parse_input(t_table *table, int argc,  char **argv)
 {
 	table->philo_nbr = (ft_atol(argv[1]));
-	table->time_to_die = (ft_atol(argv[2])) * 1e3;
-	table->time_to_eat = (ft_atol(argv[3])) * 1e3;
-	table->time_to_sleep = (ft_atol(argv[4])) * 1e3;
+	table->time_to_die = (ft_atol(argv[2])) * 1000;
+	table->time_to_eat = (ft_atol(argv[3])) * 1000;
+	table->time_to_sleep = (ft_atol(argv[4])) * 1000;
+	if (table->philo_nbr == 0)
+		error_exit("Unvalid number of philos");
+	if (table->time_to_die < 60000
+		|| table->time_to_eat < 60000
+		|| table->time_to_sleep < 60000)
+			error_exit("use time stamps bigger than 60ms");
 	if (argc == 6)
+	{
 		table->nbr_limit_meals = (ft_atol(argv[5]));
+		if (table->nbr_limit_meals == 0)
+			error_exit("Unvalid meals number");
+	}
 	else
 		table->nbr_limit_meals = -1;
 }
