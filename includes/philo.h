@@ -6,7 +6,7 @@
 /*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:07:56 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/08 12:53:12 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:29:16 by otboumeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,7 @@ void	parse_input(t_table *table,int argc, char **argv);
 //error_handling.c
 void *malloc_creation(size_t bytes);
 void	safe_mutex_handler(t_mtx *mutex, t_opcode opcode);
+void	thread_handler(t_mtx *mutex, t_opcode opcode);
+
 
 #endif

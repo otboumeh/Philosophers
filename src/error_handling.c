@@ -6,7 +6,7 @@
 /*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 12:27:34 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/08 13:06:54 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/08 16:28:28 by otboumeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,35 @@ void	mutex_handler(t_mtx *mutex, t_opcode opcode)
 	else
 		error_exit("Wrong opcode for the MUTEX handler");
 }
+
+static void	thread_handler_error(int status, t_opcode opcode)
+{
+	if (status == 0)
+		return;
+	if (status == EAGAIN)
+		error_exit("No ressource to creat another thread");
+	else if(status == EDEADLK)
+		error_exit("dead lock detected");
+	else if(status == EINVAL && opcode == CREATE)
+		error_exit("th value specified by attr is invalid");
+	else if(status == EINVAL && (opcode == JOIN || opcode == DETACH))
+		error_exit("tHE VALUE SPECIFIED BY THREAD IS NOT JOINABLE");
+	else if (status == EPERM)
+		error_exit("The caller does not have permission");
+	else if (status == ESRCH)
+		error_exit("no thread could be found corresponding to that");	
+}
+
+void	thread_handler(pthread_t *thread, void*(*foo)(void*), void *data,t_opcode opcode)
+{
+	if(opcode == CREATE)
+		thread_handler_error(pthread_create(thread, NULL, foo, data), opcode);
+	else if(opcode == JOIN)
+		thread_handler_error(pthread_join(*thread, NULL), opcode);
+	else if(opcode == DETACH)
+		thread_handler_error(pthread_detach(*thread), opcode);
+	else
+		error_exit("Wrong opcode for the rhread handler");
+}
+
+
