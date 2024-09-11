@@ -6,7 +6,7 @@
 /*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 12:27:34 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/08 16:28:28 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:40:14 by otboumeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	thread_handler(pthread_t *thread, void*(*foo)(void*), void *data,t_opcode o
 	else if(opcode == DETACH)
 		thread_handler_error(pthread_detach(*thread), opcode);
 	else
-		error_exit("Wrong opcode for the rhread handler");
+		error_exit("Wrong opcode for the thread handler");
 }
 
 

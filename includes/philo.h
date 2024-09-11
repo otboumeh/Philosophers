@@ -6,7 +6,7 @@
 /*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:07:56 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/08 15:29:16 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:46:02 by otboumeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct s_philo
 	long		nbr_meals;
 	bool		full;
 	long		last_meal_time;
-	t_fork		*left_fork;
-	t_fork		*right_fork;
+	t_fork		*first_fork;
+	t_fork		*second_fork;
 	pthread_t	thread_id;
 	t_table		*table;
 }	t_philo;
@@ -81,9 +81,12 @@ void	error_exit(const char *error);
 void	parse_input(t_table *table,int argc, char **argv);
 
 //error_handling.c
-void *malloc_creation(size_t bytes);
-void	safe_mutex_handler(t_mtx *mutex, t_opcode opcode);
-void	thread_handler(t_mtx *mutex, t_opcode opcode);
+void	*malloc_creation(size_t bytes);
+void	thread_handler(pthread_t *thread, void*(*foo)(void*), void *data,t_opcode opcode);
+void	mutex_handler(t_mtx *mutex, t_opcode opcode);
+// init.c
+void	data_init(t_table *table);
+
 
 
 #endif
