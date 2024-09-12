@@ -41,7 +41,7 @@ static void philo_init(t_table *table)
 		philo->nbr_meals = 0;
 		philo->table = table;
 	}
-	assign_fork(philo, table->forks, i);
+	assign_forks(philo, table->forks, i);
 }
 
 void	data_init(t_table *table)
@@ -57,5 +57,5 @@ void	data_init(t_table *table)
 		mutex_handler(&table->forks[i].fork, INIT);
 		table->forks[i].fork_id = i;
 	}
-	philo_init(&table);
+	philo_init(table);
 }
