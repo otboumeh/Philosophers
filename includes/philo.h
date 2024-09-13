@@ -6,7 +6,7 @@
 /*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:07:56 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/11 12:46:02 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:37:14 by otboumeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct s_table
 	long	nbr_limit_meals;
 	long	start_simulation;
 	bool	end_simulation;
+	bool	threads_ready;
+	t_mtx	table_mutex;
 	t_fork	*forks;
 	t_philo	*philos;
 }	t_table;
@@ -87,6 +89,17 @@ void	mutex_handler(t_mtx *mutex, t_opcode opcode);
 // init.c
 void	data_init(t_table *table);
 
+//dinner.c
+void	dinner_start(t_table *table);
+void *dinner_simulation();
+
+
+//getter_setters.c
+void	set_bool(t_mtx *mutex, bool *dest, bool value);
+bool	get_bool(t_mtx *mutex, bool *value);
+void	set_long(t_mtx *mutex, long *dest, long value);
+long	get_long(t_mtx *mutex, long *value);
+bool	simulation_finished(t_table *table);
 
 
 #endif
