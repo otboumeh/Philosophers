@@ -6,7 +6,7 @@
 /*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:07:56 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/13 12:37:14 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:07:20 by otboumeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@
 // we will need 3 structs one for the philo, one for the fork and one for the elements(time ...)
 typedef pthread_mutex_t t_mtx;
 typedef struct s_table t_table;
-
+typedef enum e_time_code
+{
+	SECOND,
+	MILLISECOND,
+	MICROSECOND,
+}	t_time_code;
 typedef enum e_opcode
 {	
 	LOCK,
@@ -78,6 +83,8 @@ typedef struct s_table
 
 //utils.c
 void	error_exit(const char *error);
+long	gettime(t_time_code time_code);
+
 
 //parsing.c
 void	parse_input(t_table *table,int argc, char **argv);
@@ -100,6 +107,9 @@ bool	get_bool(t_mtx *mutex, bool *value);
 void	set_long(t_mtx *mutex, long *dest, long value);
 long	get_long(t_mtx *mutex, long *value);
 bool	simulation_finished(t_table *table);
+
+//synchro_util.c
+void	wait_all_threads(t_table *table);
 
 
 #endif
