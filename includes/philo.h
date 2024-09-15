@@ -6,7 +6,7 @@
 /*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:07:56 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/14 13:07:20 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:29:50 by otboumeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,22 @@
 #define YELLOW  "\033[33m"
 #define BLUE    "\033[34m"
 #define MAGENTA "\033[35m"
-#define CYAN    "\033[36m"
+#define W   "\033[37m"
 #define RESET   "\033[0m"
 
 // we will need 3 structs one for the philo, one for the fork and one for the elements(time ...)
 typedef pthread_mutex_t t_mtx;
 typedef struct s_table t_table;
+typedef enum e_status
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	TAKE_FIRST_FORK,
+	TAKE_SECOND_FORK,
+	DIED,
+}	t_philo_status;
+
 typedef enum e_time_code
 {
 	SECOND,
@@ -77,6 +87,7 @@ typedef struct s_table
 	bool	end_simulation;
 	bool	threads_ready;
 	t_mtx	table_mutex;
+	t_mtx	write_mutex;
 	t_fork	*forks;
 	t_philo	*philos;
 }	t_table;
@@ -84,6 +95,7 @@ typedef struct s_table
 //utils.c
 void	error_exit(const char *error);
 long	gettime(t_time_code time_code);
+void	modified_usleep(long usec, t_table *table);
 
 
 //parsing.c
@@ -98,7 +110,7 @@ void	data_init(t_table *table);
 
 //dinner.c
 void	dinner_start(t_table *table);
-void *dinner_simulation();
+void *dinner_simulation(void *data);
 
 
 //getter_setters.c

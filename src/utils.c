@@ -6,7 +6,7 @@
 /*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:45:10 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/14 13:21:01 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:03:03 by otboumeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void modified_usleep(long usec, t_table *table)
 		rem = usec - elapsed;
 		if (rem > 1e3)
 			usleep(rem / 2);
-		
-	}
-	
+		else 
+		{
+			while (gettime(MICROSECOND) - start < usec)
+				;
+		}
+	}	
 }
