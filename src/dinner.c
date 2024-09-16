@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tshiki <tshiki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:24:13 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/14 13:13:29 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:41:37 by tshiki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+
+static void thinking(t_philo *philo)
+{
+	
+}
+
+
+static void eat(t_philo *philo)
+{
+	mutex_handler(&philo->first_fork->fork, LOCK);
+	write_status(TAKE_FIRST_FORK,philo, DEBUG_MODE);
+	mutex_handler(&philo->second_fork->fork, LOCK);
+	write_status(TAKE_FIRST_FORK,philo, DEBUG_MODE);
+
+	set_long(&philo->philo_mtx, &philo->last_meal_time, gettime(MILLISECOND));
+	philo->nbr_meals++;
+	write_status(EATING, philo, DEBUG_MODE);
+	modified_usleep(philo->table->time_to_eat, philo->table);
+	if (philo->table->nbr_limit_meals > 0 && philo->nbr_meals == philo->table->nbr_limit_meals)
+		set_bool(&philo->philo_mtx, &philo->full, true);
+	mutex_handler(&philo->first_fork->fork, UNLOCK);
+	mutex_handler(&philo->second_fork->fork, UNLOCK);
+
+}
 
 void *dinner_simulation(void *data)
 {
@@ -23,7 +48,8 @@ void *dinner_simulation(void *data)
 		if (philo->full)
 			break;
 		eat(philo);
-		sleep(philo);
+		write_status(SLEEPING, philo, DEBUG_MODE);
+		modified_usleep(philo->table->time_to_sleep, philo->table);
 		thinking(philo);
 	}
 	

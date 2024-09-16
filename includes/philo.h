@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tshiki <tshiki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:07:56 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/15 12:29:50 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:25:51 by tshiki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 #include <errno.h> // Errors
 #define RED     "\033[31m"
 #define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[34m"
+#define Y "\033[33m"
+#define B   "\033[34m"
 #define MAGENTA "\033[35m"
 #define W   "\033[37m"
 #define RESET   "\033[0m"
-
+#define DEBUG_MODE 0
 // we will need 3 structs one for the philo, one for the fork and one for the elements(time ...)
 typedef pthread_mutex_t t_mtx;
 typedef struct s_table t_table;
@@ -73,6 +73,7 @@ typedef struct s_philo
 	t_fork		*first_fork;
 	t_fork		*second_fork;
 	pthread_t	thread_id;
+	t_mtx		philo_mtx;
 	t_table		*table;
 }	t_philo;
 
@@ -122,6 +123,10 @@ bool	simulation_finished(t_table *table);
 
 //synchro_util.c
 void	wait_all_threads(t_table *table);
+
+//write.c
+void write_status(t_philo_status status, t_philo *philo, bool debug);
+
 
 
 #endif

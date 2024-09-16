@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: otboumeh <otboumeh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tshiki <tshiki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 12:25:55 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/14 20:07:46 by otboumeh         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:07:07 by tshiki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ static void philo_init(t_table *table)
 		philo->full = false;
 		philo->nbr_meals = 0;
 		philo->table = table;
+		safe_mutex_handle(&philo->philo_mtx, INIT);
+		assign_forks(philo, table->forks, i);
+
 	}
-	assign_forks(philo, table->forks, i);
 }
 
 void	data_init(t_table *table)
