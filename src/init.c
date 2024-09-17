@@ -6,7 +6,7 @@
 /*   By: tshiki <tshiki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 12:25:55 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/16 10:07:07 by tshiki           ###   ########.fr       */
+/*   Updated: 2024/09/17 11:25:21 by tshiki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void philo_init(t_table *table)
 		philo->full = false;
 		philo->nbr_meals = 0;
 		philo->table = table;
-		safe_mutex_handle(&philo->philo_mtx, INIT);
+		mutex_handler(&philo->philo_mtx, INIT);
 		assign_forks(philo, table->forks, i);
 
 	}

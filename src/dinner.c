@@ -6,7 +6,7 @@
 /*   By: tshiki <tshiki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:24:13 by otboumeh          #+#    #+#             */
-/*   Updated: 2024/09/16 12:41:37 by tshiki           ###   ########.fr       */
+/*   Updated: 2024/09/17 11:38:48 by tshiki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void thinking(t_philo *philo)
 {
-	
+	write_status(THINKING,philo, DEBUG_MODE);
 }
 
 
@@ -63,7 +63,7 @@ void	dinner_start(t_table *table)
 	if (table->nbr_limit_meals == 0)
 			return;
 	else if (table->philo_nbr = 1)
-		////;
+		;
 	else
 	{
 		while (table->philo_nbr > i++)
