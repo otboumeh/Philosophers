@@ -56,4 +56,9 @@ The **Philosophers** project is a classic concurrency problem that explores the 
 - Advanced synchronization techniques like mutexes.
 - Understanding and handling race conditions, deadlocks, and starvation.
 - Practical application of algorithmic thinking in systems programming.
- 
+
+ ---
+ ## Contributing 🤝
+
+Feel free to open issues or submit pull requests. Contributions and feedback are always welcome!
+
